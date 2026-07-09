@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luis Henrique Perez de Oliveira — Currículo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0E1420;
+    --bg-soft: #131A28;
+    --panel: #171F30;
+    --panel-border: #263049;
+    --text: #E7ECF3;
+    --text-muted: #8B96AC;
+    --text-faint: #5B6478;
+    --accent: #7C9EF5;
+    --accent-dim: #7C9EF52a;
+    --amber: #E8B86D;
+    --amber-dim: #E8B86D22;
+    --green: #6FCF97;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:
+      radial-gradient(circle at 15% 0%, #16213a 0%, transparent 45%),
+      radial-gradient(circle at 90% 10%, #1a2438 0%, transparent 40%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    min-height:100vh;
+  }
+
+  ::selection{ background:var(--accent-dim); color:var(--accent); }
+
+  a{ color:inherit; }
+
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:0 24px 80px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:64px 0 40px;
+    border-bottom:1px solid var(--panel-border);
+  }
+
+  .prompt-line{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-faint);
+    margin-bottom:18px;
+    letter-spacing:0.02em;
+  }
+  .prompt-line .sigil{ color:var(--green); }
+  .prompt-line .mod{ color:var(--accent); }
+
+  .name{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:clamp(28px, 5.4vw, 46px);
+    letter-spacing:-0.01em;
+    color:var(--text);
+    display:flex;
+    flex-wrap:wrap;
+  }
+  .name .cursor{
+    display:inline-block;
+    width:0.5ch;
+    background:var(--amber);
+    margin-left:4px;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .role{
+    margin-top:14px;
+    font-size:clamp(15px, 2.4vw, 18px);
+    color:var(--text-muted);
+    font-weight:500;
+  }
+  .role .hl{ color:var(--amber); font-weight:600; }
+
+  .contact-row{
+    margin-top:28px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:8px;
+    font-size:13px;
+    font-family:var(--mono);
+    color:var(--text-muted);
+    text-decoration:none;
+    transition:border-color .18s ease, color .18s ease, transform .18s ease;
+  }
+  .chip:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+    transform:translateY(-1px);
+  }
+  .chip svg{ width:14px; height:14px; flex-shrink:0; }
+
+  /* ---------- Cells ---------- */
+  .cell{
+    margin-top:52px;
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity .55s ease, transform .55s ease;
+  }
+  .cell.in-view{ opacity:1; transform:translateY(0); }
+
+  .cell-tag{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--accent);
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .cell-tag .num{ color:var(--text-faint); }
+  .cell-tag::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--panel-border);
+  }
+
+  .cell-title{
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:22px;
+    color:var(--text);
+    margin-bottom:16px;
+  }
+
+  .out-panel{
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:12px;
+    padding:24px 26px;
+  }
+
+  .lede{
+    font-size:15.5px;
+    color:var(--text-muted);
+    max-width:64ch;
+  }
+
+  /* ---------- Formação ---------- */
+  .edu-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  @media(max-width:600px){ .edu-grid{ grid-template-columns:1fr; } }
+
+  .edu-card{
+    background:var(--bg-soft);
+    border:1px solid var(--panel-border);
+    border-radius:10px;
+    padding:18px 20px;
+  }
+  .edu-degree{
+    font-weight:700;
+    font-size:15px;
+    color:var(--text);
+    margin-bottom:6px;
+  }
+  .edu-school{
+    font-size:13.5px;
+    color:var(--text-muted);
+    margin-bottom:12px;
+  }
+  .edu-status{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--green);
+    background:#6fcf9718;
+    border:1px solid #6fcf9740;
+    padding:4px 10px;
+    border-radius:999px;
+  }
+  .edu-status .dot{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--green);
+    animation:pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+  .edu-year{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-left:8px;
+  }
+
+  /* ---------- Skills ---------- */
+  .skill-group{ margin-bottom:22px; }
+  .skill-group:last-child{ margin-bottom:0; }
+  .skill-group-label{
+    font-family:var(--mono);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-faint);
+    margin-bottom:12px;
+  }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    padding:7px 13px;
+    border-radius:7px;
+  }
+  .tag.core{
+    background:var(--accent-dim);
+    border:1px solid #7c9ef555;
+    color:var(--accent);
+  }
+  .tag.learning{
+    background:transparent;
+    border:1px dashed var(--panel-border);
+    color:var(--text-muted);
+  }
+
+  /* ---------- Competências ---------- */
+  .comp-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px 20px;
+  }
+  @media(max-width:600px){ .comp-list{ grid-template-columns:1fr; } }
+  .comp-item{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    font-size:14.5px;
+    color:var(--text-muted);
+  }
+  .comp-item::before{
+    content:'→';
+    color:var(--amber);
+    font-family:var(--mono);
+    font-size:13px;
+  }
+
+  /* ---------- Idiomas ---------- */
+  .lang-row{ margin-bottom:18px; }
+  .lang-row:last-child{ margin-bottom:0; }
+  .lang-top{
+    display:flex;
+    justify-content:space-between;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text);
+    margin-bottom:8px;
+  }
+  .lang-top span:last-child{ color:var(--text-faint); }
+  .bar-track{
+    height:6px;
+    background:var(--bg-soft);
+    border-radius:999px;
+    overflow:hidden;
+    border:1px solid var(--panel-border);
+  }
+  .bar-fill{
+    height:100%;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--accent), var(--green));
+    width:0;
+    transition:width 1.1s cubic-bezier(.4,0,.2,1);
+  }
+  .cell.in-view .bar-fill{ width:var(--fill); }
+
+  /* ---------- Footer / contato ---------- */
+  .cta{
+    margin-top:64px;
+    text-align:center;
+    padding:40px 24px;
+    border-top:1px solid var(--panel-border);
+  }
+  .cta-title{
+    font-family:var(--mono);
+    font-size:20px;
+    color:var(--text);
+    margin-bottom:10px;
+  }
+  .cta-sub{
+    color:var(--text-muted);
+    font-size:14px;
+    margin-bottom:24px;
+  }
+  .cta-buttons{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13.5px;
+    padding:11px 20px;
+    border-radius:8px;
+    text-decoration:none;
+    transition:transform .18s ease, opacity .18s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn.primary{
+    background:var(--amber);
+    color:#1a1408;
+    font-weight:600;
+  }
+  .btn.ghost{
+    border:1px solid var(--panel-border);
+    color:var(--text-muted);
+  }
+  .btn.ghost:hover{ border-color:var(--accent); color:var(--accent); }
+
+  .foot-note{
+    margin-top:36px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-faint);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    .cell{ opacity:1; transform:none; }
+    .bar-fill{ width:var(--fill) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="prompt-line"><span class="sigil">&gt;&gt;&gt;</span> <span class="mod">import</span> curriculo <span class="mod">as</span> luis</div>
+    <h1 class="name" id="typedName"><span class="cursor"></span></h1>
+    <p class="role">Estudante de <span class="hl">Inteligência Artificial</span> &amp; <span class="hl">Ciência de Dados</span></p>
+
+    <div class="contact-row">
+      <a class="chip" href="tel:+5514998660309">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (14) 99866-0309
+      </a>
+      <a class="chip" href="mailto:luishenriqueperez1@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6c0-1.1-.9-2-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6z"/><path d="M22 6l-10 7L2 6"/></svg>
+        luishenriqueperez1@gmail.com
+      </a>
+      <a class="chip" href="https://github.com/LuisHenrique240" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.25 10.25 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+        github.com/LuisHenrique240
+      </a>
+      <span class="chip" style="cursor:default;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Toledo/PR
+      </span>
+    </div>
+  </header>
+
+  <!-- CELL 1: OBJETIVO -->
+  <section class="cell">
+    <div class="cell-tag"><span class="num">In [1]</span> luis.objetivo()</div>
+    <div class="out-panel">
+      <p class="lede">
+        Busco uma oportunidade para atuar na área de Inteligência Artificial, contribuindo para o desenvolvimento
+        de projetos inovadores e de alto impacto. Interesse em aprendizado contínuo, resolução de problemas e
+        aplicação de tecnologias que gerem valor real para empresas e usuários.
+      </p>
+    </div>
+  </section>
+
+  <!-- CELL 2: FORMAÇÃO -->
+  <section class="cell">
+    <div class="cell-tag"><span class="num">In [2]</span> luis.formacao()</div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-degree">Bacharelado em Inteligência Artificial</div>
+        <div class="edu-school">Biopark Educação</div>
+        <span class="edu-status"><span class="dot"></span>em andamento</span>
+        <span class="edu-year">previsão 2029</span>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Tecnólogo em Ciência de Dados</div>
+        <div class="edu-school">Biopark Educação</div>
+        <span class="edu-status"><span class="dot"></span>em andamento</span>
+        <span class="edu-year">previsão 2027</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CELL 3: HABILIDADES -->
+  <section class="cell">
+    <div class="cell-tag"><span class="num">In [3]</span> luis.habilidades_tecnicas()</div>
+    <div class="out-panel">
+      <div class="skill-group">
+        <div class="skill-group-label">Base técnica</div>
+        <div class="tag-row">
+          <span class="tag core">Python</span>
+          <span class="tag core">Lógica de Programação</span>
+          <span class="tag core">Banco de Dados</span>
+          <span class="tag core">MySQL</span>
+          <span class="tag core">PostgreSQL</span>
+          <span class="tag core">Power BI</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Conhecimentos em desenvolvimento</div>
+        <div class="tag-row">
+          <span class="tag learning">HTML</span>
+          <span class="tag learning">CSS</span>
+          <span class="tag learning">JavaScript</span>
+          <span class="tag learning">Java</span>
+          <span class="tag learning">PHP</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CELL 4: COMPETÊNCIAS -->
+  <section class="cell">
+    <div class="cell-tag"><span class="num">In [4]</span> luis.competencias_pessoais()</div>
+    <div class="out-panel">
+      <div class="comp-list">
+        <div class="comp-item">Proatividade e prestatividade</div>
+        <div class="comp-item">Persistência e rápida capacidade de aprendizado</div>
+        <div class="comp-item">Boa comunicação interpessoal</div>
+        <div class="comp-item">Trabalho em equipe</div>
+        <div class="comp-item">Organização e responsabilidade</div>
+        <div class="comp-item">Orientação para resultados</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CELL 5: IDIOMAS -->
+  <section class="cell">
+    <div class="cell-tag"><span class="num">In [5]</span> luis.idiomas()</div>
+    <div class="out-panel">
+      <div class="lang-row">
+        <div class="lang-top"><span>Português</span><span>Nativo</span></div>
+        <div class="bar-track"><div class="bar-fill" style="--fill:100%"></div></div>
+      </div>
+      <div class="lang-row">
+        <div class="lang-top"><span>Inglês</span><span>Básico</span></div>
+        <div class="bar-track"><div class="bar-fill" style="--fill:32%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta cell">
+    <div class="cta-title">Disponível para estágio</div>
+    <p class="cta-sub">Aberto a oportunidades em Machine Learning, Análise de Dados e Automação.</p>
+    <div class="cta-buttons">
+      <a class="btn primary" href="mailto:luishenriqueperez1@gmail.com">Enviar e-mail</a>
+      <a class="btn ghost" href="https://github.com/LuisHenrique240" target="_blank" rel="noopener">Ver GitHub</a>
+      <a class="btn ghost" href="tel:+5514998660309">Ligar</a>
+    </div>
+    <div class="foot-note">Rua Enrico Fermi, 3325, Apto. 11 — Biopark, Toledo/PR — CEP 85920-073</div>
+  </section>
+
+</div>
+
+<script>
+  // Typing effect for name
+  (function(){
+    const el = document.getElementById('typedName');
+    const cursor = el.querySelector('.cursor');
+    const text = "Luis Henrique\nPerez de Oliveira";
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduced) {
+      el.innerHTML = text.replace('\n', '<br>') ;
+      const c = document.createElement('span');
+      c.className='cursor';
+      el.appendChild(c);
+      return;
+    }
+
+    let i = 0;
+    function type(){
+      if (i <= text.length){
+        const chunk = text.slice(0, i).replace('\n','<br>');
+        el.innerHTML = chunk;
+        el.appendChild(cursor);
+        i++;
+        setTimeout(type, 38);
+      }
+    }
+    type();
+  })();
+
+  // Scroll reveal for cells
+  const cells = document.querySelectorAll('.cell');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cells.forEach(c=>io.observe(c));
+</script>
+
+</body>
+</html>
